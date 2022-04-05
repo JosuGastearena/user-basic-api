@@ -12,8 +12,6 @@ class IsEarlyAdopterService
      */
     private $userDataSource;
 
-
-
     /**
      * IsEarlyAdopterService constructor.
      * @param UserDataSource $userDataSource
