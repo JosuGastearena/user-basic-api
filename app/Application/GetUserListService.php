@@ -28,7 +28,6 @@ class GetUserListService
     {
 
         $userList = $this->userDataSource->getUserList();
-
         return $userList;
     }
 
