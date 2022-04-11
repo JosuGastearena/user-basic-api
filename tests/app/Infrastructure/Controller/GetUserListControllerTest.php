@@ -3,10 +3,11 @@
 namespace Tests\app\Infrastructure\Controller;
 
 use App\Application\UserDataSource\UserDataSource;
-use Illuminate\Http\Response;
-use Tests\TestCase;
-use Mockery;
+use App\Infrastructure\Providers\FakeUserDataSource;
 use Exception;
+use Illuminate\Http\Response;
+use Mockery;
+use Tests\TestCase;
 
 
 class GetUserListControllerTest extends TestCase
@@ -35,9 +36,28 @@ class GetUserListControllerTest extends TestCase
             ->once()
             ->andThrow(new Exception('Hubo un error al realizar la peticion'));
 
-        $response = $this->get('/api/users/list/');
+        $response = $this->get('/api/users/list');
 
         $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
     }
+
+    /**
+     * @test
+     */
+    /*
+    public function returnsEmptyWithNoUsers()
+    {
+        $fakeDataSource = new FakeUserDataSource();
+        $expectedUsers = [""];
+
+        $response = $fakeDataSource->getUserList();
+
+        $this->assertEquals($expectedUsers, $response);
+
+
+
+    }*/
+
+
 
 }
