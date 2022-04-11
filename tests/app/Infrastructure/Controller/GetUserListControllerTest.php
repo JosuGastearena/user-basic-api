@@ -46,12 +46,15 @@ class GetUserListControllerTest extends TestCase
      */
     public function returnsEmptyWithNoUsers()
     {
-        $fakeDataSource = new FakeUserDataSource();
-        $expectedUsers = [""];
-        $fakeDataSource->setUserList($expectedUsers);
-        $response = $fakeDataSource->getUserList();
+        $this->userDataSource
+            ->expects('getUserList')
+            ->once()
+            ->andReturn(array(""));
 
-        $this->assertEquals($expectedUsers, $response);
+        $response = $this->get('/api/users/list');
+
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("")]);
+
 
     }
 
@@ -60,16 +63,16 @@ class GetUserListControllerTest extends TestCase
      */
     public function returnsUserList()
     {
-        $fakeDataSource = new FakeUserDataSource();
+        $this->userDataSource
+            ->expects('getUserList')
+            ->once()
+            ->andReturn(array("id: 1", "id: 3"));
 
-        $expectedUsers = array("id: 1", "id: 3", "id: 5");
-        $fakeDataSource->setUserList($expectedUsers);
-        $response = $fakeDataSource->getUserList();
+        $response = $this->get('/api/users/list');
 
-        $this->assertEquals($expectedUsers, $response);
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("id: 1", "id: 3")]);
+
 
     }
-
-
 
 }
