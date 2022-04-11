@@ -6,6 +6,8 @@ use App\Application\GetUserListService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
+use Exception;
+
 
 class GetUserListController extends BaseController
 {
