@@ -44,19 +44,31 @@ class GetUserListControllerTest extends TestCase
     /**
      * @test
      */
-    /*
     public function returnsEmptyWithNoUsers()
     {
         $fakeDataSource = new FakeUserDataSource();
         $expectedUsers = [""];
-
+        $fakeDataSource->setUserList($expectedUsers);
         $response = $fakeDataSource->getUserList();
 
         $this->assertEquals($expectedUsers, $response);
 
+    }
 
+    /**
+     * @test
+     */
+    public function returnsUserList()
+    {
+        $fakeDataSource = new FakeUserDataSource();
 
-    }*/
+        $expectedUsers = array("id: 1", "id: 3", "id: 5");
+        $fakeDataSource->setUserList($expectedUsers);
+        $response = $fakeDataSource->getUserList();
+
+        $this->assertEquals($expectedUsers, $response);
+
+    }
 
 
 
