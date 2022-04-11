@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Application;
+
+use App\Application\UserDataSource\UserDataSource;
+use Exception;
+
+class GetUserListService
+{
+    /**
+     * @var UserDataSource
+     */
+    private $userDataSource;
+
+    /**
+     * IsEarlyAdopterService constructor.
+     * @param UserDataSource $userDataSource
+     */
+    public function __construct(UserDataSource $userDataSource)
+    {
+        $this->userDataSource = $userDataSource;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function execute():bool
+    {
+
+        $userList = $this->userDataSource->getUserList();
+
+        return true;
+    }
+
+}
