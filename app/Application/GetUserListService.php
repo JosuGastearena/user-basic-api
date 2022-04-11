@@ -24,12 +24,12 @@ class GetUserListService
     /**
      * @throws Exception
      */
-    public function execute():bool
+    public function execute():array
     {
 
         $userList = $this->userDataSource->getUserList();
 
-        return true;
+        return $userList;
     }
 
 }
