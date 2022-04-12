@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\GetUserList;
 
 use App\Application\UserDataSource\UserDataSource;
 use Exception;

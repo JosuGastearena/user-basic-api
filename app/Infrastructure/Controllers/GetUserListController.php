@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure\Controllers;
 
-use App\Application\GetUserListService;
+use App\Application\GetUserList\GetUserListService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Exception;
 
 
 class GetUserListController extends BaseController
@@ -28,7 +28,7 @@ class GetUserListController extends BaseController
         } catch (Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         return response()->json([
