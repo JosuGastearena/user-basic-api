@@ -28,7 +28,6 @@ class GetUserDataService
     public function execute(string $id): User
     {
         $user = $this->userDataSource->findById($id);
-
         return $user;
     }
 }
