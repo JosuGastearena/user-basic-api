@@ -60,5 +60,4 @@ class GetUserDataServiceTest extends TestCase
         $actualUser = $this->getUserDataService->execute($id);
         $this->assertEquals($expectedUser, $actualUser);
     }
-
 }

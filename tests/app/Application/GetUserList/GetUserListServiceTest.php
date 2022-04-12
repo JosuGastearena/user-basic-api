@@ -53,8 +53,5 @@ class GetUserListServiceTest extends TestCase
         $response = $this->userDataSource->getUserList();
 
         $this->assertEquals($expectedUsers, $response);
-
     }
-
-
 }

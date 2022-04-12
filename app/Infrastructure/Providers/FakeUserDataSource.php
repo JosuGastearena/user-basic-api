@@ -7,9 +7,7 @@ use App\Domain\User;
 
 class FakeUserDataSource implements UserDataSource
 {
-
     private $userList = array("id: 1", "id: 3", "id: 5");
-
 
     public function findByEmail(string $email): User
     {
@@ -29,7 +27,6 @@ class FakeUserDataSource implements UserDataSource
     public function getUser():User
     {
         return new User(1, 'email@email.com');
-
     }
 
     public function findById(string $id): User
