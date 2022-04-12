@@ -3,7 +3,7 @@
 namespace Tests\app\Infrastructure\Controller;
 
 use App\Application\UserDataSource\UserDataSource;
-use App\Infrastructure\Providers\FakeUserDataSource;
+use App\Domain\User;
 use Exception;
 use Illuminate\Http\Response;
 use Mockery;
@@ -55,5 +55,20 @@ class GetUserDataControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertExactJson(['error' => 'Usuario no encontrado']);
     }
+    /**
+     * @test
+     */
+    public function returnsUserData()
+    {
+        $user = new User(1, 'email@email.com');
+        $this->userDataSource
+            ->expects('findById')
+            ->with('1')
+            ->once()
+            ->andReturns($user);
 
+        $response = $this->get('/api/users/1');
+
+        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['id' => $user->getId(), 'email'=> $user->getEmail()]);
+    }
 }
