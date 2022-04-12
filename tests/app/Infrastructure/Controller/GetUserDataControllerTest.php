@@ -9,9 +9,9 @@ use Illuminate\Http\Response;
 use Mockery;
 use Tests\TestCase;
 
-
-class GetUserListControllerTest extends TestCase
+class GetUserDataControllerTest extends TestCase
 {
+
     private UserDataSource $userDataSource;
 
     /**
@@ -31,47 +31,14 @@ class GetUserListControllerTest extends TestCase
     public function genericErrorGivenFetchingUser()
     {
         $this->userDataSource
-            ->expects('getUserList')
+            ->expects('findById')
+            ->with('1')
             ->once()
             ->andThrow(new Exception('Hubo un error al realizar la peticion'));
 
-        $response = $this->get('/api/users/list');
+        $response = $this->get('/api/users/1');
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertExactJson(['error' => 'Hubo un error al realizar la peticion']);
-    }
-
-    /**
-     * @test
-     */
-    public function returnsEmptyWithNoUsers()
-    {
-        $this->userDataSource
-            ->expects('getUserList')
-            ->once()
-            ->andReturn(array(""));
-
-        $response = $this->get('/api/users/list');
-
-        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("")]);
-
-
-    }
-
-    /**
-     * @test
-     */
-    public function returnsUserList()
-    {
-        $this->userDataSource
-            ->expects('getUserList')
-            ->once()
-            ->andReturn(array("id: 1", "id: 3"));
-
-        $response = $this->get('/api/users/list');
-
-        $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("id: 1", "id: 3")]);
-
-
     }
 
 }
