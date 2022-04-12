@@ -32,6 +32,4 @@ class GetUserDataController extends BaseController
             'email'=> $user->getEmail()
         ], Response::HTTP_OK);
     }
-
-
 }

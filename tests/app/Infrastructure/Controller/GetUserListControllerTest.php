@@ -53,8 +53,6 @@ class GetUserListControllerTest extends TestCase
         $response = $this->get('/api/users/list');
 
         $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("")]);
-
-
     }
 
     /**
@@ -70,8 +68,5 @@ class GetUserListControllerTest extends TestCase
         $response = $this->get('/api/users/list');
 
         $response->assertStatus(Response::HTTP_OK)->assertExactJson(['list' => array("id: 1", "id: 3")]);
-
-
     }
-
 }

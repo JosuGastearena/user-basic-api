@@ -34,8 +34,5 @@ class GetUserListController extends BaseController
         return response()->json([
             'list' => $getUserList
         ], Response::HTTP_OK);
-
     }
-
-
 }
