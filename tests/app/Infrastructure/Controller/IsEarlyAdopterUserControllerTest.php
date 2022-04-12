@@ -37,7 +37,7 @@ class IsEarlyAdopterUserControllerTest extends TestCase
 
         $response = $this->get('/api/user/another@email.com');
 
-        $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)->assertExactJson(['error' => 'User not found']);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertExactJson(['error' => 'User not found']);
     }
 
     /**
