@@ -30,7 +30,6 @@ class GetUserListControllerTest extends TestCase
      */
     public function genericErrorGivenFetchingUser()
     {
-
         $this->userDataSource
             ->expects('getUserList')
             ->once()

@@ -2,14 +2,13 @@
 
 namespace Tests\app\Application\EarlyAdopter;
 
-use App\Application\GetUserListService;
-use App\Infrastructure\Providers\FakeUserDataSource;
-use PHPUnit\Framework\TestCase;
+use Mockery;
+use App\Application\UserDataSource\UserDataSource;
+use Tests\TestCase;
 
 class GetUserListServiceTest extends TestCase
 {
-    private GetUserListService $getUserListService;
-    private FakeUserDataSource $fakeUserDataSource;
+    private UserDataSource $userDataSource;
 
     /**
      * @setUp
@@ -18,9 +17,8 @@ class GetUserListServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->fakeUserDataSource = new FakeUserDataSource();
-
-        $this->getUserListService = new GetUserListService($this->fakeUserDataSource);
+        $this->userDataSource = Mockery::mock(UserDataSource::class);
+        $this->app->bind(UserDataSource::class, fn () => $this->userDataSource);
     }
 
     /**
@@ -29,10 +27,13 @@ class GetUserListServiceTest extends TestCase
     public function returnsEmptyWithNoUsers()
     {
         $expectedUsers = array("");
-        $this->fakeUserDataSource->setUserList($expectedUsers);
+        $this->userDataSource
+            ->expects('getUserList')
+            ->once()
+            ->andReturn(array(""));
 
 
-        $response = $this->fakeUserDataSource->getUserList();
+        $response = $this->userDataSource->getUserList();
 
         $this->assertEquals($expectedUsers, $response);
     }
@@ -43,8 +44,13 @@ class GetUserListServiceTest extends TestCase
     public function returnsUserList()
     {
         $expectedUsers = array("id: 1", "id: 3", "id: 5");
-        $this->fakeUserDataSource->setUserList($expectedUsers);
-        $response = $this->fakeUserDataSource->getUserList();
+        $this->userDataSource
+            ->expects('getUserList')
+            ->once()
+            ->andReturn(array("id: 1", "id: 3", "id: 5"));
+
+
+        $response = $this->userDataSource->getUserList();
 
         $this->assertEquals($expectedUsers, $response);
 
